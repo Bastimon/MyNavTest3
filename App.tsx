@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -31,7 +31,7 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Dropdown } from 'react-native-material-dropdown';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { BottomNavigation, Button, } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -42,6 +42,17 @@ function SettingsScreen() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(
+    [
+      { label: 'Proteinquelle', value: 'proteinquelle' },
+      { label: 'Kohlenhydrate', value: 'kohlenhydrate' },
+      { label: 'Gemüse', value: 'gemüse' },
+      { label: 'Gewürze', value: 'gewürze' },
+      { label: 'Sauce', value: 'sauce' },
+    ]
+  );
 
   return (
     <View
@@ -50,17 +61,13 @@ function SettingsScreen() {
         backgroundColor: isDarkMode ? Colors.black : Colors.white,
       }}>
       <View style={styles.container}>
-        <Dropdown
-          
-          label= 'Wähle eine Zutaten-Art...'
-          
-          data={[
-            { label: 'Proteinquelle', value: 'proteinquelle' },
-            { label: 'Kohlenhydrate', value: 'kohlenhydrate' },
-            { label: 'Gemüse', value: 'gemüse' },
-            { label: 'Gewürze', value: 'gewürze' },
-            { label: 'Sauce', value: 'sauce' },
-          ]}
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
         />
         <TextInput
           placeholder="placeholder"
