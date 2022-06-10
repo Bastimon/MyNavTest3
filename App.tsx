@@ -29,13 +29,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import RNPickerSelect from 'react-native-picker-select';
-import {Button} from '@react-native-material/core';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {BottomNavigation} from 'react-native-paper';
-import {Icon} from '@react-native-material/core';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Dropdown } from 'react-native-material-dropdown';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { BottomNavigation, Button, } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function SettingsScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -51,18 +50,16 @@ function SettingsScreen() {
         backgroundColor: isDarkMode ? Colors.black : Colors.white,
       }}>
       <View style={styles.container}>
-        <RNPickerSelect
-          onValueChange={value => console.log(value)}
-          placeholder={{
-            label: 'Wähle eine Zutaten-Art...',
-            value: null,
-          }}
-          items={[
-            {label: 'Proteinquelle', value: 'proteinquelle'},
-            {label: 'Kohlenhydrate', value: 'kohlenhydrate'},
-            {label: 'Gemüse', value: 'gemüse'},
-            {label: 'Gewürze', value: 'gewürze'},
-            {label: 'Sauce', value: 'sauce'},
+        <Dropdown
+          
+          label= 'Wähle eine Zutaten-Art...'
+          
+          data={[
+            { label: 'Proteinquelle', value: 'proteinquelle' },
+            { label: 'Kohlenhydrate', value: 'kohlenhydrate' },
+            { label: 'Gemüse', value: 'gemüse' },
+            { label: 'Gewürze', value: 'gewürze' },
+            { label: 'Sauce', value: 'sauce' },
           ]}
         />
         <TextInput
@@ -91,7 +88,9 @@ function HomeScreen() {
 
   return (
     <View style={styles.containerz}>
-      <Button title="Click Me" style={{alignSelf: 'center'}} />
+      <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+        Press me
+      </Button>
     </View>
   );
 }
@@ -117,13 +116,13 @@ function App() {
         initialRouteName="Home"
         activeColor="#f0edf6"
         inactiveColor="#3e2465"
-        style={{backgroundColor: 'tomato'}}>
+        style={{ backgroundColor: 'tomato' }}>
         <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
             tabBarLabel: 'Home',
-            tabBarIcon: ({color}) => <Icon name="home" size={24} color="red" />,
+            tabBarIcon: ({ color }) => <Icon name="home" size={24} color="red" />,
           }}
         />
         <Tab.Screen name="Neue Zutat" component={SettingsScreen} />
